@@ -1,14 +1,23 @@
 import numpy as np
 import pickle
 import json
+import os
+
+
+def get_model_path(filename):
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    model_dir = os.path.join(current_dir, '..', 'model', filename)
+    return model_dir
 
 
 # Load the model from pickle file
-with open('../model/placement_prediction_model.pickle', 'rb') as f:
+model_path = get_model_path('placement_prediction_model.pickle')
+with open(model_path, 'rb') as f:
     model = pickle.load(f)
 
 # Load columns information from JSON file
-with open('../model/columns_placement_prediction.json', 'r') as f:
+columns_path = get_model_path('columns_placement_prediction.json')
+with open(columns_path, 'r') as f:
     columns = json.load(f)['data_columns']
 
 
