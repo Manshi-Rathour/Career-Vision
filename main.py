@@ -26,10 +26,15 @@ def main():
 
     # Input fields for placement prediction
     st.header('Placement Prediction')
+
     # Load college names from JSON file
     college_names_path = get_model_path('college_names.json')
-    with open(college_names_path, 'r') as f:
-        college_names = json.load(f)['college_names']
+    if os.path.exists(college_names_path):
+        with open(college_names_path, 'r') as f:
+            college_names = json.load(f)['college_names']
+    else:
+        st.error(f"College names JSON file '{college_names_path}' not found.")
+        return
 
     # Dropdown for selecting college name
     college_name = st.selectbox('Select College Name', college_names)

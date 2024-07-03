@@ -5,14 +5,12 @@ import os
 
 
 def get_model_path(filename):
-    """Return the absolute path to the model directory."""
     current_dir = os.path.dirname(os.path.abspath(__file__))
     model_dir = os.path.join(current_dir, '..', 'model', filename)
     return model_dir
 
 
 def load_model():
-    """Load the model from the pickle file."""
     model_path = get_model_path('placement_prediction_model.pickle')
     with open(model_path, 'rb') as f:
         model = pickle.load(f)
@@ -20,7 +18,6 @@ def load_model():
 
 
 def load_columns():
-    """Load columns information from the JSON file."""
     columns_path = get_model_path('columns_placement_prediction.json')
     with open(columns_path, 'r') as f:
         columns = json.load(f)['data_columns']
@@ -28,9 +25,8 @@ def load_columns():
 
 
 def predict_placement(college, attendee, cgpa, speaking_skill, ml_knowledge):
-    """Predict placement based on input features."""
-    model = load_model()
-    columns = load_columns()
+    model = load_model()  # Load the model
+    columns = load_columns()  # Load the columns
 
     # Check if the college exists in the columns
     if college.lower() in columns:
