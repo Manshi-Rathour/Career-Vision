@@ -12,7 +12,7 @@ def get_model_path(filename):
 
 
 def main():
-    st.title('Calculate Graduation Year')
+    st.title('Calculate Graduation Year 🎓')
 
     # Input fields
     current_year = st.number_input('Enter Current Year', min_value=2000, max_value=2100, step=1)
@@ -25,7 +25,7 @@ def main():
         st.success(f'Predicted Graduation Year: {graduation_year}')
 
     # Input fields for placement prediction
-    st.title('Placement Prediction')
+    st.title('Placement Prediction 📈')
 
     # Load college names from JSON file
     college_names_path = get_model_path('college_names.json')
