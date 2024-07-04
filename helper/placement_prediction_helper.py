@@ -1,5 +1,5 @@
 import numpy as np
-import pickle
+import joblib  # Changed from pickle to joblib
 import json
 import os
 
@@ -10,12 +10,15 @@ def get_model_path(filename):
     return model_dir
 
 def load_model():
-    model_path = get_model_path('placement_prediction_model.pickle')
+    model_path = get_model_path('placement_prediction_model.pkl')  # Changed extension to .pkl
     print(f"Loading model from path: {model_path}")  # Debugging print statement
     if not os.path.exists(model_path):
         raise FileNotFoundError(f"Model file not found at path: {model_path}")
-    with open(model_path, 'rb') as f:
-        model = pickle.load(f)
+    try:
+        model = joblib.load(model_path)  # Changed from pickle to joblib
+    except Exception as e:
+        print(f"Error loading model: {e}")
+        raise
     return model
 
 def load_columns():
@@ -51,6 +54,7 @@ def predict_placement(college, attendee, cgpa, speaking_skill, ml_knowledge):
     prediction = model.predict([x_])[0]  # The output is in the form of an array so we take only the first element
 
     return prediction
+
 
 
 
