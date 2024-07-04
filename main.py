@@ -25,7 +25,7 @@ def main():
         st.success(f'Predicted Graduation Year: {graduation_year}')
 
     # Input fields for placement prediction
-    st.header('Placement Prediction')
+    st.title('Placement Prediction')
 
     # Load college names from JSON file
     college_names_path = get_model_path('college_names.json')
