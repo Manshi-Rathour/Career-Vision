@@ -12,7 +12,7 @@ def get_model_path(filename):
 
 
 def main():
-    st.title('Graduation Year Prediction')
+    st.title('Calculate Graduation Year')
 
     # Input fields
     current_year = st.number_input('Enter Current Year', min_value=2000, max_value=2100, step=1)
