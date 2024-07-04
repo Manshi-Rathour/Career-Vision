@@ -3,38 +3,41 @@ import joblib  # Changed from pickle to joblib
 import json
 import os
 
+
 def get_model_path(filename):
     current_dir = os.path.dirname(os.path.abspath(__file__))
     model_dir = os.path.join(current_dir, '..', 'model', filename)
-    print(f"Computed path for {filename}: {model_dir}")  # Debugging print statement
+    print(f"Computed path for {filename}: {model_dir}")
     return model_dir
 
+
 def load_model():
-    model_path = get_model_path('placement_prediction_model.pkl')  # Changed extension to .pkl
-    print(f"Loading model from path: {model_path}")  # Debugging print statement
+    model_path = get_model_path('placement_prediction_model.pkl')
+    print(f"Loading model from path: {model_path}")
     if not os.path.exists(model_path):
         raise FileNotFoundError(f"Model file not found at path: {model_path}")
     try:
-        model = joblib.load(model_path)  # Changed from pickle to joblib
+        model = joblib.load(model_path)
     except Exception as e:
         print(f"Error loading model: {e}")
         raise
     return model
 
+
 def load_columns():
     columns_path = get_model_path('columns_placement_prediction.json')
-    print(f"Loading columns from path: {columns_path}")  # Debugging print statement
+    print(f"Loading columns from path: {columns_path}")
     if not os.path.exists(columns_path):
         raise FileNotFoundError(f"Columns file not found at path: {columns_path}")
     with open(columns_path, 'r') as f:
         columns = json.load(f)['data_columns']
     return columns
 
+
 def predict_placement(college, attendee, cgpa, speaking_skill, ml_knowledge):
     model = load_model()  # Load the model
     columns = load_columns()  # Load the columns
 
-    # Check if the college exists in the columns
     if college.lower() in columns:
         loc_index = columns.index(college.lower())  # Get the index of the college column
     else:
@@ -54,8 +57,6 @@ def predict_placement(college, attendee, cgpa, speaking_skill, ml_knowledge):
     prediction = model.predict([x_])[0]  # The output is in the form of an array so we take only the first element
 
     return prediction
-
-
 
 
 if __name__ == "__main__":
